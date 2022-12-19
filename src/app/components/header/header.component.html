@@ -1,0 +1,46 @@
+<div class="max-w-7xl  mx-auto">
+  <p-toolbar class=" mx-auto p-justify-between">
+    <a routerLink="home" class="font-bold">Code with Sloba store</a>
+    <button (click)="op.toggle($event)" pButton class="p-button-raised p-button-warning">
+      <i class="pi pi-shopping-cart" pBadge style="font-size: 2rem" value="8" severity="danger"></i>
+    </button>
+  </p-toolbar>
+  <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '250px'}" [dismissable]="false"	>
+    <ng-template pTemplate>
+      <div class="p-3 divide-y divide-solid">
+        <div class="pb-3 flex justify-between">
+          <span class="mr-16">8 items</span>
+          <a routerLink="cart">View Cart</a>
+        </div>
+        <div class="py-3">
+          <div class="flex justify-between font-light mb-2">
+            Keyboard x 1
+            <span class="font-bold">{{150 | currency}}</span>
+          </div>
+          <div class="flex justify-between font-light mb-2">
+            Keyboard x 1
+            <span class="font-bold">{{150 | currency}}</span>
+          </div>
+          <div class="flex justify-between font-light mb-2">
+            Keyboard x 1
+            <span class="font-bold">{{150 | currency}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-between py-3 font-light">
+        Total:
+        <span class="font-bold">{{450 | currency}}</span>
+      </div>
+      <div class="pt-3 flex justify-between">
+        <button class="bg-rose-600 text-white rounded-full w-9 h-9">
+          <i class="pi pi-ban"></i>
+        </button>
+        <button routerLink="cart" class="bg-green-600 text-white rounded-full w-9 h-9">
+          <i class="pi pi-shopping-cart"></i>
+        </button>
+      </div>
+
+    </ng-template>
+  </p-overlayPanel>
+</div>
+
