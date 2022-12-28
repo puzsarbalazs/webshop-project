@@ -17,6 +17,12 @@ import { ProductsHeaderComponent } from './pages/home/components/products-header
 import {MenuModule} from "primeng/menu";
 import { FiltersComponent } from './pages/home/components/filters/filters.component';
 import { ProductBoxComponent } from './pages/home/components/product-box/product-box.component';
+import { CartComponent } from './pages/cart/cart.component';
+import {TableModule} from "primeng/table";
+import {CartService} from "./services/cart.service";
+import {ToastModule} from "primeng/toast";
+import {RippleModule} from "primeng/ripple";
+import {MessageService} from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -25,7 +31,8 @@ import { ProductBoxComponent } from './pages/home/components/product-box/product
     HomeComponent,
     ProductsHeaderComponent,
     FiltersComponent,
-    ProductBoxComponent
+    ProductBoxComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +45,12 @@ import { ProductBoxComponent } from './pages/home/components/product-box/product
     SidebarModule,
     CardModule,
     AccordionModule,
-    MenuModule
+    MenuModule,
+    TableModule,
+    ToastModule,
+    RippleModule
   ],
-  providers: [],
+  providers: [CartService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
