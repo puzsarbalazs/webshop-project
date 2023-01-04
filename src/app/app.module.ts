@@ -23,6 +23,8 @@ import {CartService} from "./services/cart.service";
 import {ToastModule} from "primeng/toast";
 import {RippleModule} from "primeng/ripple";
 import {MessageService} from "primeng/api";
+import {StoreService} from "./services/store.service";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -48,9 +50,10 @@ import {MessageService} from "primeng/api";
     MenuModule,
     TableModule,
     ToastModule,
-    RippleModule
+    RippleModule,
+    HttpClientModule
   ],
-  providers: [CartService, MessageService],
+  providers: [CartService, MessageService, StoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
