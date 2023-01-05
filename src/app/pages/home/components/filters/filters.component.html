@@ -1,14 +1,15 @@
 <p-card>
   <p-accordion>
     <p-accordionTab header="CATEGORIES" [selected]="false">
-      <button (click)="onShowCategory('')" pButton class="p-button-text my-2">
-        All
+      <button pRipple (click)="onShowCategory('')" pButton class="p-button-text my-2">
+        ALL
       </button>
       <div *ngFor="let cat of categories">
-        <button (click)="onShowCategory(cat)" pButton class="p-button-text my-2">
-          {{cat}}
+        <button pRipple (click)="onShowCategory(cat)" pButton class="p-button-text my-2">
+          {{cat | uppercase}}
         </button>
       </div>
     </p-accordionTab>
   </p-accordion>
 </p-card>
+

@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
     console.log(this.itemsQuantity)
   }
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService ) { }
 
   ngOnInit(): void {
   }
@@ -36,5 +36,13 @@ export class HeaderComponent implements OnInit {
 
   onClearCart() {
     this.cartService.clearCart()
+  }
+
+  onConfirmClearCart(): void{
+    this.cartService.confirmClearCart()
+  }
+
+  onCancelClearCart(): void{
+    this.cartService.cancelClearCart()
   }
 }

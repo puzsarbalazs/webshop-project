@@ -12,6 +12,7 @@ export class CartService {
   constructor(private messageService: MessageService, private primeNgConfig: PrimeNGConfig) { }
 
   addToCart(item: CartItem): void {
+    this.messageService.clear()
     const items = [...this.cart.value.items]
 
     const itemInCart = items.find(( currentItem => currentItem.id === item.id))
@@ -23,7 +24,7 @@ export class CartService {
       this.messageService.add({severity: "info", summary: "Item added to cart", detail: "New item has been added to cart"})
     }
     this.cart.next({items})
-    console.log(this.cart.value)
+    console.log(this.messageService)
   }
 
   getTotal(cart: Cart): number {
@@ -33,11 +34,34 @@ export class CartService {
   }
 
   clearCart(): void {
-    this.cart.next({items: []})
+    this.messageService.clear()
+    if (this.cart.value.items.length === 0) {
+      this.messageService.add({severity: "warn", summary: "Empty cart", detail: "Your cart is already empty"})
+    } else {
+      //this.cart.next({items: []})
+      //this.messageService.add({severity:"warn", summary: "Cart is cleared", detail: "The cart is now empty"})
+      this.messageService.add({
+        key: "c",
+        severity: "error",
+        summary: "Confirm clearing cart",
+        detail: "Are you sure you want to clear your cart?",
+        sticky: true
+      })
+    }
+  }
+
+  confirmClearCart(): void{
+    this.messageService.clear()
     this.messageService.add({severity:"warn", summary: "Cart is cleared", detail: "The cart is now empty"})
+    this.cart.next({items: []})
+  }
+
+  cancelClearCart(): void{
+    this.messageService.clear()
   }
 
   removeFromCart(item: CartItem, update = true): Array<CartItem> {
+    this.messageService.clear()
       const filteredItems = this.cart.value.items.
         filter((_item) => item.id !== _item.id)
 
@@ -49,6 +73,7 @@ export class CartService {
   }
 
   removeQuantity(item: CartItem): void {
+    this.messageService.clear()
     let itemForRemoval: CartItem | undefined;
     let filteredItems = this.cart.value.items.map((_item) => {
       if (item.id === _item.id){

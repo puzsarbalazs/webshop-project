@@ -1,8 +1,28 @@
-<div class="max-w-7xl  mx-auto min-h-full">
-  <p-toolbar class=" mx-auto p-justify-between">
-    <a routerLink="home" class="font-bold text-lg">
+<p-toast position="top-center" key="c" class="confirm-toast" [baseZIndex]="5000" (onClose)="onCancelClearCart()" [hideTransitionOptions]="'0ms ease-in'">
+  <ng-template let-message pTemplate="message">
+    <div class="p-flex p-flex-column flex flex-col" style="flex: 1">
+      <div class="p-text-center text-center">
+        <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+        <h4 class="text-lg font-bold my-4">{{message.summary}}</h4>
+        <p class="my-2">{{message.detail}}</p>
+      </div>
+      <div class="p-grid p-fluid">
+        <div class="p-col-6">
+          <button type="button" pButton  label="Yes" class="p-button-success" (click)="onConfirmClearCart()"></button>
+        </div>
+        <div class="p-col-6">
+          <button type="button" pButton label="No" class="p-button-secondary" (click)="onCancelClearCart()"></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+
+<div class="max-w-7xl  mx-auto min-h-full ">
+  <p-toolbar class=" mx-auto p-justify-between ">
+    <button pButton class="p-button-outlined" routerLink="home" class="font-bold text-lg">
       <i class="pi pi-home" style="font-size: 1.5rem"></i> Home page
-    </a>
+    </button>
 
     <button (click)="op.toggle($event)" pButton class="p-button-raised p-button-warning">
       <i class="pi pi-shopping-cart"  style="font-size: 1.5rem">
@@ -11,17 +31,22 @@
 
     </button>
   </p-toolbar>
-  <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '250px'}" [dismissable]="false"	>
-    <ng-template pTemplate>
+  <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '350px'}" 	>
+    <ng-template  pTemplate>
+
+      <div *ngIf="cart.items.length">
       <div *ngIf="cart.items.length" class="p-3 divide-y divide-solid">
         <div class="pb-3 flex justify-between">
           <span class="mr-16">{{itemsQuantity}} items</span>
           <a routerLink="cart">View Cart</a>
         </div>
         <div class="py-3">
-          <div *ngFor="let item of cart.items" class="flex justify-between font-light mb-2">
-            {{item.name}} x {{item.quantity}}
+          <div *ngFor="let item of cart.items" class="flex justify-between font-light mb-2 border-b-2">
+
+            <span class="">{{item.name}}</span>
+            <span class="mx-6 text-lg">{{item.quantity}}x</span>
             <span class="font-bold">{{item.price | currency}}</span>
+
           </div>
         </div>
       </div>
@@ -33,12 +58,16 @@
         <button (click)="onClearCart()" class="bg-rose-600 text-white rounded-full w-9 h-9">
           <i class="pi pi-times"></i>
         </button>
-        <button routerLink="cart" class="bg-green-600 text-white rounded-full w-9 h-9">
+        <button routerLink="cart" class="bg-green-600 text-white rounded-full w-9 h-9 ">
           <i class="pi pi-shopping-cart"></i>
         </button>
       </div>
 
+      </div>
+      <h2 class="font-bold italic" *ngIf="!cart.items.length">Your cart is empty, lets buy something</h2>
+
     </ng-template>
+
   </p-overlayPanel>
 </div>
 

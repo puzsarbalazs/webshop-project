@@ -1,20 +1,23 @@
-<div *ngIf="product" [ngClass]="{'text-center': !fullWidthMode}">
-  <div [ngClass]="{'flex': fullWidthMode}">
+<div *ngIf="product" [ngClass]="{'text-center': !fullWidthMode}" >
+  <p-card class="bg-amber-200">
+  <div [ngClass]="{'flex': fullWidthMode}" >
     <img [ngClass]="{'h-[200px]': !fullWidthMode, 'h-[300px]': fullWidthMode, 'max-w-sm':fullWidthMode}"
       class="mb-1 mx-auto h-[200px]"
          [src]="product.image" >
     <div class="w-full" [ngClass]="{'px-8 flex flex-col justify-between': fullWidthMode}">
       <div>
-        <h5>{{product.category}}</h5>
-        <p [ngClass]="{'truncate': !fullWidthMode, 'hover:whitespace-normal': !fullWidthMode}">{{product.title}}</p>
-        <p *ngIf="fullWidthMode">{{product.description}}</p>
+        <h5>{{product.category | uppercase}}</h5>
+        <p [ngClass]="{'truncate': !fullWidthMode, 'hover:whitespace-normal': !fullWidthMode,
+          'my-4':fullWidthMode}">{{product.title}}</p>
+        <p *ngIf="fullWidthMode" class="italic text-sm">{{product.description}}</p>
       </div>
-      <div class="flex justify-between mx-8">
-        <span class="text-red-500">{{product.price | currency}}</span>
-        <button (click)="onAddToCart()">
-          <i class="pi pi-shopping-cart text-gray-500"></i>
+      <div class="flex justify-between mx-8 mt-2" >
+        <span class="text-red-500 font-bold" [ngClass]="{'text-3xl': fullWidthMode}">{{product.price | currency}} </span>
+        <button (click)="onAddToCart()" pButton class="p-button-outlined p-button-secondary p-button-raised">
+          <i class="pi pi-shopping-cart " [ngClass]="{'text-3xl': fullWidthMode}"></i>
         </button>
       </div>
     </div>
   </div>
+  </p-card>
 </div>

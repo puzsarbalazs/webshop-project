@@ -57,6 +57,14 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart()
   }
 
+  onConfirmClearCart(): void{
+    this.cartService.confirmClearCart()
+  }
+
+  onCancelClearCart(): void{
+    this.cartService.cancelClearCart()
+  }
+
   onRemoveFromCart(item: CartItem): void {
     this.cartService.removeFromCart(item);
   }

@@ -25,6 +25,8 @@ import {RippleModule} from "primeng/ripple";
 import {MessageService} from "primeng/api";
 import {StoreService} from "./services/store.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {DividerModule} from "primeng/divider";
+import {PaginatorModule} from "primeng/paginator";
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     TableModule,
     ToastModule,
     RippleModule,
-    HttpClientModule
+    HttpClientModule,
+    DividerModule,
+    PaginatorModule
   ],
   providers: [CartService, MessageService, StoreService],
   bootstrap: [AppComponent]
