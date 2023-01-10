@@ -27,6 +27,7 @@ import {StoreService} from "./services/store.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {DividerModule} from "primeng/divider";
 import {PaginatorModule} from "primeng/paginator";
+import { ToastMessageComponent } from './components/toast-message/toast-message.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {PaginatorModule} from "primeng/paginator";
     ProductsHeaderComponent,
     FiltersComponent,
     ProductBoxComponent,
-    CartComponent
+    CartComponent,
+    ToastMessageComponent
   ],
   imports: [
     BrowserModule,

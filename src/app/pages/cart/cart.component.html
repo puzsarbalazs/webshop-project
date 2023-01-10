@@ -1,23 +1,5 @@
 <p-toast position="bottom-center" [hideTransitionOptions]="'0ms ease-in'"></p-toast>
-<p-toast position="top-center" key="c" class="confirm-toast" [baseZIndex]="5000" (onClose)="onCancelClearCart()" [hideTransitionOptions]="'0ms ease-in'">
-  <ng-template let-message pTemplate="message">
-    <div class="p-flex p-flex-column flex flex-col" style="flex: 1">
-      <div class="p-text-center text-center">
-        <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
-        <h4 class="text-lg font-bold my-4">{{message.summary}}</h4>
-        <p class="my-2">{{message.detail}}</p>
-      </div>
-      <div class="p-grid p-fluid flex">
-        <div class="p-col-6">
-          <button type="button" pButton  label="Yes" class="p-button-success" (click)="onConfirmClearCart()"></button>
-        </div>
-        <div class="p-col-6">
-          <button type="button" pButton label="No" class="p-button-secondary" (click)="onCancelClearCart()"></button>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-</p-toast>
+<app-toast-message></app-toast-message>
 
 <div *ngIf="!cart.items.length" class="max-w-7xl mx-auto">
   <p-card>

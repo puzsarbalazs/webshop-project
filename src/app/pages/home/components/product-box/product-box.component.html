@@ -1,5 +1,5 @@
 <div *ngIf="product" [ngClass]="{'text-center': !fullWidthMode}" >
-  <p-card class="bg-amber-200">
+  <p-card styleClass="bg-color" class="bg-amber-200">
   <div [ngClass]="{'flex': fullWidthMode}" >
     <img [ngClass]="{'h-[200px]': !fullWidthMode, 'h-[300px]': fullWidthMode, 'max-w-sm':fullWidthMode}"
       class="mb-1 mx-auto h-[200px]"
@@ -11,7 +11,7 @@
           'my-4':fullWidthMode}">{{product.title}}</p>
         <p *ngIf="fullWidthMode" class="italic text-sm">{{product.description}}</p>
       </div>
-      <div class="flex justify-between mx-8 mt-2" >
+      <div class="flex justify-between mx-8 mt-2 border-t-2 pt-2 border-gray-400" >
         <span class="text-red-500 font-bold" [ngClass]="{'text-3xl': fullWidthMode}">{{product.price | currency}} </span>
         <button (click)="onAddToCart()" pButton class="p-button-outlined p-button-secondary p-button-raised">
           <i class="pi pi-shopping-cart " [ngClass]="{'text-3xl': fullWidthMode}"></i>
