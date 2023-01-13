@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Cart, CartItem} from "../../models/cart.model";
 import {CartService} from "../../services/cart.service";
 import {Singleton} from "../../models/singleton"
+import {faMoon, faSun} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,9 @@ export class HeaderComponent implements OnInit {
   itemsQuantity = 0
   s1 = Singleton.getInstance()
   s2 = Singleton.getInstance()
+  sunIcon = faSun;
+  moonIcon = faMoon;
+  darkmode: boolean = false;
 
   @Input()
   get cart(): Cart {
@@ -45,16 +49,9 @@ export class HeaderComponent implements OnInit {
     this.cartService.clearCart()
   }
 
-  onConfirmClearCart(): void{
-    this.cartService.confirmClearCart()
-  }
-
-  onCancelClearCart(): void{
-    this.cartService.cancelClearCart()
-  }
-
   onRemoveQuantity(item: CartItem): void {
     this.cartService.removeQuantity(item)
+    console.log(this.darkmode)
   }
 
   onAddQuantity(product: CartItem): void {
@@ -63,5 +60,9 @@ export class HeaderComponent implements OnInit {
 
   onRemoveFromCart(item: CartItem): void {
     this.cartService.removeFromCart(item);
+  }
+
+  toggle() {
+    document.body.classList.toggle('dark-theme')
   }
 }

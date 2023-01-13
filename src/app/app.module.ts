@@ -23,11 +23,19 @@ import {CartService} from "./services/cart.service";
 import {ToastModule} from "primeng/toast";
 import {RippleModule} from "primeng/ripple";
 import {MessageService} from "primeng/api";
-import {StoreService} from "./services/store.service";
+import {ProductService} from "./services/product.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {DividerModule} from "primeng/divider";
 import {PaginatorModule} from "primeng/paginator";
 import { ToastMessageComponent } from './components/toast-message/toast-message.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {ToggleButtonModule} from "primeng/togglebutton";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
+import { StoreModule } from '@ngrx/store';
+import {EffectsModule} from "@ngrx/effects";
+import {AppEffects} from "./store/app.effects";
+import {appInitialReducerMap, initialState} from "./store/app.reducers";
+import {Repository} from "./store/repository.js";
 
 @NgModule({
   declarations: [
@@ -40,26 +48,31 @@ import { ToastMessageComponent } from './components/toast-message/toast-message.
     CartComponent,
     ToastMessageComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ToolbarModule,
-    ButtonModule,
-    BadgeModule,
-    OverlayPanelModule,
-    SidebarModule,
-    CardModule,
-    AccordionModule,
-    MenuModule,
-    TableModule,
-    ToastModule,
-    RippleModule,
-    HttpClientModule,
-    DividerModule,
-    PaginatorModule
-  ],
-  providers: [CartService, MessageService, StoreService],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        ToolbarModule,
+        ButtonModule,
+        BadgeModule,
+        OverlayPanelModule,
+        SidebarModule,
+        CardModule,
+        AccordionModule,
+        MenuModule,
+        TableModule,
+        ToastModule,
+        RippleModule,
+        HttpClientModule,
+        DividerModule,
+        PaginatorModule,
+        FontAwesomeModule,
+        ToggleButtonModule,
+        ProgressSpinnerModule,
+      StoreModule.forRoot(appInitialReducerMap, {initialState}),
+      EffectsModule.forRoot([AppEffects]),
+    ],
+  providers: [CartService, MessageService, ProductService, Repository],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

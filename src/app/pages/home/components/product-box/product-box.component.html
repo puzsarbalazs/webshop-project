@@ -6,14 +6,14 @@
          [src]="product.image" >
     <div class="w-full" [ngClass]="{'px-8 flex flex-col justify-between': fullWidthMode}">
       <div>
-        <h5>{{product.category | uppercase}}</h5>
+        <button (click)="onShowCategory(product.category)"><span class="category-button bg-blue-500 rounded px-2 text-cyan-50">{{product.category | uppercase}}</span></button>
         <p [ngClass]="{'truncate': !fullWidthMode, 'hover:whitespace-normal': !fullWidthMode,
           'my-4':fullWidthMode}">{{product.title}}</p>
         <p *ngIf="fullWidthMode" class="italic text-sm">{{product.description}}</p>
       </div>
       <div class="flex justify-between mx-8 mt-2 border-t-2 pt-2 border-gray-400" >
         <span class="text-red-500 font-bold" [ngClass]="{'text-3xl': fullWidthMode}">{{product.price | currency}} </span>
-        <button (click)="onAddToCart()" pButton class="p-button-outlined p-button-secondary p-button-raised">
+        <button (click)="onAddToCart()" pButton class="p-button-outlined  p-button-raised add-to-cart-button">
           <i class="pi pi-shopping-cart " [ngClass]="{'text-3xl': fullWidthMode}"></i>
         </button>
       </div>

@@ -1,1 +1,73 @@
 .ui-badge:empty { display: none; }
+
+.toggle-label {
+  width: 100px;
+  height: 40px;
+  position: relative;
+  display: block;
+  border-radius: 40px;
+  box-shadow: inset  0px 5px 15px rgba(0,0,0,0.4), inset 0px -5px 15px rgba(255,255,255,0.4);
+  cursor: pointer;
+}
+
+.toggle-label:after {
+  content: "";
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  background: linear-gradient(180deg, #ffcc89, #d8860b);
+  border-radius: 36px;
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+}
+
+.toggle-input {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.toggle-input:checked + .toggle-label {
+  background: #242424;
+}
+
+.toggle-input:checked + .toggle-label:after {
+  left: 98px;
+  transform: translate(-100%);
+  background: linear-gradient(180deg, #777, #3a3a3a);
+}
+
+.toggle-label, toggle-label:after {
+  transition: 0.5s;
+}
+
+.toggle-label i {
+  position: absolute;
+  width: 24px;
+  top: 8px;
+  z-index: 100;
+}
+
+.toggle-label i.pi-plus{
+  left: 8px;
+  color: #fff;
+  transition: 0.5s;
+}
+
+
+.toggle-label i.pi-minus{
+  left: 68px;
+  color: #7e7e7e;
+  transition: 0.5s;
+}
+
+.toggle-input:checked + .toggle-label i.pi-plus {
+  color: #7e7e7e
+}
+
+.toggle-input:checked + .toggle-label i.pi-minus {
+  color: #ffffff;
+}
+
+

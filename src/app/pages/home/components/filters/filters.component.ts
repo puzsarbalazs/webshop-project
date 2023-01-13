@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {StoreService} from "../../../../services/store.service";
+import {ProductService} from "../../../../services/product.service";
 import {Subscription} from "rxjs";
 import {PrimeNGConfig} from "primeng/api";
 
@@ -14,10 +14,10 @@ export class FiltersComponent implements OnInit, OnDestroy {
   categoriesSubscription: Subscription | undefined;
   categories: string[] | undefined
 
-  constructor(private storeService: StoreService, private primeNgConfig: PrimeNGConfig) { }
+  constructor(private productService: ProductService, private primeNgConfig: PrimeNGConfig) { }
 
   ngOnInit(): void {
-    this.storeService.getAllCategories()
+    this.productService.getAllCategories()
         .subscribe(response => this.categories = response)
     this.primeNgConfig.ripple = true;
   }

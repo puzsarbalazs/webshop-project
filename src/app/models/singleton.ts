@@ -4,7 +4,7 @@
  */
 import {Product} from "./product.model";
 import {CartService} from "../services/cart.service";
-import {StoreService} from "../services/store.service";
+import {ProductService} from "../services/product.service";
 
 export class Singleton {
   asd = 10;

@@ -5,3 +5,95 @@
 .bg-color{
   background: aliceblue;
 }
+
+body.dark-theme .bg-color {
+  background: #242424;
+  color: gainsboro;
+}
+
+body {
+  background: linear-gradient(lightsteelblue ,royalblue);
+}
+
+body.dark-theme {
+  background: linear-gradient(darkgray, darkslategrey);
+}
+
+body.dark-theme .category-button {
+  background: limegreen;
+}
+
+body .szines {
+  background-image: url('src/assets/hatter2.jpg');
+}
+
+body.dark-theme .szines {
+  background-image: url('src/assets/hatter5.jpg');
+}
+
+.p-element.toggle-dark {
+  background: black;
+  width: 50px;
+  height: 40px;
+
+}
+
+.p-togglebutton.p-button .p-button-icon-left {
+  color: white;
+}
+
+
+body.dark-theme .p-element.toggle-dark {
+  background: darkgray;
+  border-color: darkgray;
+}
+
+.p-togglebutton.p-button.p-highlight:hover{
+  background: dimgrey;
+  border-color: dimgrey;
+}
+
+
+
+.p-togglebutton.p-button.p-highlight:focus{
+  box-shadow: 0 0 0 0.2rem ghostwhite;
+}
+
+.toggle-dark.p-button:focus{
+  box-shadow: 0 0 0 0.2rem lightslategray;
+}
+
+body.dark-theme .home-button {
+  background: limegreen;
+  border-color: limegreen
+}
+
+body.dark-theme .home-button:hover {
+  background: lime;
+  border-color: lime;
+}
+
+body.dark-theme .home-button:focus {
+  box-shadow: 0 0 0 0.2rem greenyellow;
+}
+
+body.dark-theme .p-card{
+  box-shadow: 0 3px 2px -2px rgb(255 255 255 / 20%), 0 2px 2px 0 rgb(255 255 255 / 14%), 0 2px 4px 0 rgb(255 255 255 / 12%);
+}
+
+body.dark-theme .add-to-cart-button {
+  color:limegreen;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

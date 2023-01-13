@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product} from "../../../../models/product.model";
+import {faLinkedin} from "@fortawesome/free-brands-svg-icons";
 
 @Component({
   selector: 'app-product-box',
@@ -9,6 +10,8 @@ import {Product} from "../../../../models/product.model";
 export class ProductBoxComponent implements OnInit {
   @Input() fullWidthMode = false;
   @Output() addToCart = new EventEmitter();
+  @Output() showCategory = new EventEmitter<string>();
+
 
   @Input() product: Product |undefined;
 
@@ -20,5 +23,9 @@ export class ProductBoxComponent implements OnInit {
 
   onAddToCart(): void {
     this.addToCart.emit(this.product)
+  }
+
+  onShowCategory(category: string): void {
+    this.showCategory.emit(category)
   }
 }
