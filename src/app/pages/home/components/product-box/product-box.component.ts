@@ -1,6 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product} from "../../../../models/product.model";
 import {faLinkedin} from "@fortawesome/free-brands-svg-icons";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../../store/app.reducers";
+import {deleteProductAction} from "../../../../store/app.action";
 
 @Component({
   selector: 'app-product-box',
@@ -16,13 +19,18 @@ export class ProductBoxComponent implements OnInit {
   @Input() product: Product |undefined;
 
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
   }
 
   onAddToCart(): void {
     this.addToCart.emit(this.product)
+  }
+
+  deleteItem(): void {
+      // @ts-ignore
+    this.store.dispatch(deleteProductAction({id: this.product.id }))
   }
 
   onShowCategory(category: string): void {

@@ -85,6 +85,16 @@ body.dark-theme .add-to-cart-button {
   color:limegreen;
 }
 
+.bg-color .p-paginator{
+  background:aliceblue;
+}
+
+body.dark-theme .bg-color .p-paginator{
+  background: #242424;
+}
+
+
+
 
 
 

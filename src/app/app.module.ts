@@ -36,6 +36,9 @@ import {EffectsModule} from "@ngrx/effects";
 import {AppEffects} from "./store/app.effects";
 import {appInitialReducerMap, initialState} from "./store/app.reducers";
 import {Repository} from "./store/repository.js";
+import { AdminComponent } from './pages/admin/admin.component';
+import {FileUploadModule} from "primeng/fileupload";
+import {InputTextModule} from "primeng/inputtext";
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import {Repository} from "./store/repository.js";
     FiltersComponent,
     ProductBoxComponent,
     CartComponent,
-    ToastMessageComponent
+    ToastMessageComponent,
+    AdminComponent
   ],
     imports: [
         BrowserModule,
@@ -69,8 +73,10 @@ import {Repository} from "./store/repository.js";
         FontAwesomeModule,
         ToggleButtonModule,
         ProgressSpinnerModule,
-      StoreModule.forRoot(appInitialReducerMap, {initialState}),
-      EffectsModule.forRoot([AppEffects]),
+        StoreModule.forRoot(appInitialReducerMap, {initialState}),
+        EffectsModule.forRoot([AppEffects]),
+        FileUploadModule,
+        InputTextModule,
     ],
   providers: [CartService, MessageService, ProductService, Repository],
   bootstrap: [AppComponent]
