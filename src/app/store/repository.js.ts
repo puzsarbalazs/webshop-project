@@ -2,15 +2,18 @@ import {Product} from "../models/product.model";
 import {Observable, of} from "rxjs";
 import {ProductService} from "../services/product.service";
 import {Injectable} from "@angular/core";
+import {MessageService} from "primeng/api";
 
 const STORE_BASE_URL = "https://fakestoreapi.com";
 
 @Injectable()
 export class Repository {
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,
+              private messageService: MessageService) {
   }
 
   cachedProducts: Product[] = [];
+  filteredProducts: Product[] = []
 
   toSort: Product[] = [];
 
@@ -40,7 +43,11 @@ export class Repository {
     if (this.cachedProducts.length === 0 ){
       //this.productService.getEveryProduct().subscribe(p => this.cachedProducts = p)
       //return of(this.cachedProducts)
-      this.productService.getEveryProduct().subscribe(p => this.cachedProducts = p)
+      this.productService.getEveryProduct().subscribe(p => {
+        this.cachedProducts = p
+        this.filteredProducts = p
+      })
+      this.filteredProducts = [...this.cachedProducts]
       console.log("lefut a http kérés")
       return this.productService.getEveryProduct()
     } else {
@@ -53,7 +60,7 @@ export class Repository {
 
 
   changeOrder(order: any): Observable<Product[]>{
-    let sorted = [...this.cachedProducts];
+    let sorted = [...this.filteredProducts];
     let sortedBy: string = order.order.sortBy;
     console.log(sorted[0][sortedBy as keyof Product])
     if (order.order.sort === "desc"){
@@ -89,15 +96,46 @@ export class Repository {
 
    deleteProduct(id: any) {
      let currentProducts = [...this.cachedProducts];
-     //currentProducts.pop();
      console.log(id)
      currentProducts = currentProducts.filter(a => a.id !== id.id)
      this.cachedProducts = currentProducts;
      return of(this.cachedProducts);
    }
 
+   searchProducts(s: any){
+     let currentProducts = [...this.filteredProducts];
+     currentProducts = currentProducts.filter(product => product.title.toLowerCase().includes(s.s.toLowerCase()))
+     if (currentProducts.length === 0){
+       this.messageService.add({severity: "warn", summary: "Not found", detail: "No product find matching your search"})
+       return of(this.filteredProducts);
+     } else {
+       this.filteredProducts = currentProducts;
+       return of(this.filteredProducts)
+     }
+   }
+
+  filterByPrice(price: any){
+     let currentProducts = [...this.cachedProducts];
+     currentProducts = currentProducts.filter(product => product.price>=price.price.min && product.price<=price.price.max)
+    this.filteredProducts = currentProducts
+     return of(this.filteredProducts)
+  }
 
 
-
-
+  filterProducts(prop: any) {
+     let filteredProducts = [...this.cachedProducts];
+     if (prop.filters.category === ""){
+       filteredProducts = filteredProducts.filter(product => product.price >= prop.filters.minPrice && product.price <= prop.filters.maxPrice &&
+         product.title.toLowerCase().includes(prop.filters.search.toLowerCase()))
+     } else {
+       filteredProducts = filteredProducts.filter(product => product.price >= prop.filters.minPrice && product.price <= prop.filters.maxPrice &&
+         product.title.toLowerCase().includes(prop.filters.search.toLowerCase()) && product.category === prop.filters.category )
+     }
+     if (filteredProducts.length === 0 ) {
+       this.messageService.add({severity: "warn", summary: "Not found", detail: "No product find matching your search"})
+       return this.get()
+     } else {
+       return of(filteredProducts);
+     }
+  }
 }

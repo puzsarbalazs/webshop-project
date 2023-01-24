@@ -5,8 +5,8 @@ import {
   addProductResultAction,
   categoryFilterResultAction,
   changeProductOrderResultAction,
-  deleteProductResultAction,
-  getAllProductsResultAction
+  deleteProductResultAction, filterByPriceResultAction, filterProductsResultAction,
+  getAllProductsResultAction, searchProductsResultAction
 } from "./app.action";
 
 export interface AppState  {
@@ -36,6 +36,15 @@ export const productReducer = createReducer(
   }),
   on(changeProductOrderResultAction, (state, action) => {
     return action.products;
+  }),
+  on(searchProductsResultAction, (state, action) => {
+    return action.products
+  }),
+  on(filterByPriceResultAction, (state, action) => {
+    return action.products
+  }),
+  on(filterProductsResultAction, (state, action) => {
+    return action.products
   })
 )
 

@@ -39,6 +39,8 @@ import {Repository} from "./store/repository.js";
 import { AdminComponent } from './pages/admin/admin.component';
 import {FileUploadModule} from "primeng/fileupload";
 import {InputTextModule} from "primeng/inputtext";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {SliderModule} from "primeng/slider";
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ import {InputTextModule} from "primeng/inputtext";
         EffectsModule.forRoot([AppEffects]),
         FileUploadModule,
         InputTextModule,
+        InputTextareaModule,
+        SliderModule,
     ],
   providers: [CartService, MessageService, ProductService, Repository],
   bootstrap: [AppComponent]

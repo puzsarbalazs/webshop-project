@@ -1,15 +1,36 @@
+<p-toast position="bottom-center" [preventOpenDuplicates]=true  [hideTransitionOptions]="'0ms ease-in'"></p-toast>
+
 <p-card styleClass="bg-color">
   <p-accordion >
-    <p-accordionTab  header="CATEGORIES" [selected]="false">
-      <button pRipple (click)="onShowCategory('')" pButton class="p-button-text my-2">
+    <div>
+      <span class="p-input-icon-right p-float-label">
+        <i (click)="resetSearchProducts(); searchInput.value='' " class="pi pi-times reset-search"></i>
+        <input pInputText  id="search-input" class #searchInput (keydown.enter)="searchProducts(searchInput.value)">
+        <label for="search-input">Search</label>
+      </span>
+    </div>
+    <div class="flex justify-between my-4">
+      <button pButton (click)="searchProducts(searchInput.value)" class="p-button-rounded">Search</button>
+    </div>
+    <div class="my-8">
+      <h5  class="text-lg my-4">Price {{priceRange[0]  + " - " + priceRange[1]}} ($)</h5>
+      <p-slider (onChange)="filterByPrice(priceRange[0], priceRange[1])" [(ngModel)]="priceRange"
+                [max]="1000" [range]="true"></p-slider>
+    </div>
+
+    <p-accordionTab   header="CATEGORIES" [selected]="false">
+      <button pRipple (click)="onShowCategory('')" pButton class="p-button-text my-2"
+                [ngClass]="{'p-button-raised': 'all'===currentCategory, 'p-button-text': 'all' !==currentCategory}">
         ALL
       </button>
-      <div *ngFor="let cat of categories">
-        <button pRipple (click)="onShowCategory(cat)" pButton class="p-button-text my-2">
+      <div *ngFor="let cat of categories" >
+        <button pRipple (click)="onShowCategory(cat)" pButton class="my-2"
+                [ngClass]="{'p-button-raised': cat===currentCategory, 'p-button-text': cat !==currentCategory}">
           {{cat | uppercase}}
         </button>
       </div>
     </p-accordionTab>
   </p-accordion>
 </p-card>
+
 

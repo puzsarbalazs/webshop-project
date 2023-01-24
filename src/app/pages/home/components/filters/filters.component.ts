@@ -1,7 +1,15 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {ProductService} from "../../../../services/product.service";
 import {Subscription} from "rxjs";
-import {PrimeNGConfig} from "primeng/api";
+import {MessageService, PrimeNGConfig} from "primeng/api";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../../store/app.reducers";
+import {
+  filterByPriceAction,
+  filterProductsAction,
+  getAllProductsAction,
+  searchProductsAction
+} from "../../../../store/app.action";
 
 @Component({
   selector: 'app-filters',
@@ -13,8 +21,13 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   categoriesSubscription: Subscription | undefined;
   categories: string[] | undefined
+  currentCategory: string ="";
+  priceRange : number[] = [0, 1000];
+  searchProduct: string = "";
 
-  constructor(private productService: ProductService, private primeNgConfig: PrimeNGConfig) { }
+  constructor(private productService: ProductService, private primeNgConfig: PrimeNGConfig,
+              private store: Store<AppState>,
+              private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.productService.getAllCategories()
@@ -30,6 +43,35 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   onShowCategory(category: string): void {
       this.showCategory.emit(category)
+    if (category === ""){
+      this.currentCategory = "";
+    } else {
+      this.currentCategory = category;
+    }
+    this.store.dispatch(filterProductsAction({filters: {minPrice: this.priceRange[0], maxPrice: this.priceRange[1],
+        search: this.searchProduct, category: this.currentCategory}}))
+  }
+
+  searchProducts(search: string){
+    console.log(search)
+    this.searchProduct = search
+    this.store.dispatch(filterProductsAction({filters: {minPrice: this.priceRange[0], maxPrice: this.priceRange[1],
+          search: this.searchProduct, category: this.currentCategory}}))
+    //this.store.dispatch(searchProductsAction({s: search}))
+
+  }
+
+  resetSearchProducts(){
+    this.searchProduct = "";
+    this.store.dispatch(filterProductsAction({filters: {minPrice: this.priceRange[0], maxPrice: this.priceRange[1],
+        search: this.searchProduct, category: this.currentCategory}}));
+  }
+
+  filterByPrice(min: number, max: number){
+    //this.store.dispatch(filterByPriceAction({price: {min: min, max: max}}))
+
+    this.store.dispatch(filterProductsAction({filters: {minPrice: this.priceRange[0], maxPrice: this.priceRange[1],
+        search: this.searchProduct, category: this.currentCategory}}))
   }
 
 }

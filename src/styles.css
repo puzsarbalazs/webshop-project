@@ -93,8 +93,48 @@ body.dark-theme .bg-color .p-paginator{
   background: #242424;
 }
 
+.p-datatable .p-datatable-thead > tr > th {
+  background: lightblue;
+  text-align: center;
+}
 
+.p-datatable .p-datatable-tbody > tr > td {
+  background: aliceblue;
+}
 
+body.dark-theme .p-datatable .p-datatable-thead > tr > th {
+  background: #242424;
+  color: gainsboro;
+}
+
+body.dark-theme .p-datatable .p-datatable-tbody > tr > td {
+  background: #303030;
+  color: gainsboro;
+}
+
+body.dark-theme .p-inputtext {
+  background: #9e9e9e;
+  color:white;
+}
+
+body.dark-theme .p-dropdown .p-dropdown-trigger {
+  background: #9e9e9e;
+  color:white;
+}
+
+p-accordion .p-button.p-button-raised {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+p-accordion .p-button.p-button-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 
 
 
