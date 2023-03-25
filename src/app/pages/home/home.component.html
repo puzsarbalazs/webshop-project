@@ -1,0 +1,36 @@
+<p-toast position="bottom-center" [preventOpenDuplicates]=true  [hideTransitionOptions]="'0ms ease-in'"></p-toast>
+
+
+  <div class="p-grid min-h-screen max-w-7xl mx-auto border-x szines" >
+    <div class="p-col-3">
+
+      <app-filters  (showCategory)="onShowCategoryChange($event)"></app-filters>
+    </div>
+    <div class="p-col-9 h">
+      <app-products-header
+        (itemsCountChange)="onItemsCountChange($event)"
+        (sortChange)="onSortChange($event)"
+        (columnsCountChange)="onColumnsCountChange($event)"
+      (sortByChange)="onSortByChange($event)">
+      </app-products-header>
+      <p-paginator class="bg-color" [rows]="12" [totalRecords]="100" [rowsPerPageOptions]="[12, 24, 36]" (onPageChange)="change($event)">
+      </p-paginator>
+      <div class="p-grid mt-5">
+        <div *ngFor="let product of products?.slice(start,end)" [ngClass]="cols === 3 ? 'p-col-4 ' : cols===4 ? 'p-col-3' : 'p-col-12'" [style.height]="rowHeight+'px'">
+            <app-product-box (showCategory)="onShowCategoryChange($event)"
+              (addToCart)="onAddToCart($event)" class="w-full" [fullWidthMode]="cols===1"
+              [product]="product">
+            </app-product-box>
+          </div>
+        <div *ngIf="products.length===0" class="p-col-12 bg-color" >
+          <div >
+            <img src='assets/loading.gif'>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+

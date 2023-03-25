@@ -1,0 +1,26 @@
+<p-card styleClass="bg-color">
+  <div class="mb-4">
+    <div class="flex justify-between">
+      <div>
+        <button (click)="ordering.toggle($event)" pButton class="p-button-secondary p-button-rounded">
+          Sort order: {{sort}}<i class="pi mx-2" [ngClass]="sort ==='desc' ? 'pi-arrow-up' : 'pi-arrow-down'" style="font-size: 1rem"> </i>
+        </button>
+          <p-menu #ordering [popup]="true"  [model]="descButton" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'200ms'" appendTo="body"></p-menu>
+        <button pButton (click)="orderingBy.toggle($event)">
+          Order by: {{sortBy}}
+        </button>
+        <p-menu #orderingBy [popup]="true" [model]="orderByButton" showTransitionOptions="200ms" appendTo="body"></p-menu>
+
+
+      </div>
+      <div class="flex items-center">
+
+      <div>
+        <button class="mx-0.5" (click)="onColumnsUpdated(1)"><fa-icon [icon]="onePerRow"></fa-icon></button>
+        <button class="mx-0.5" (click)="onColumnsUpdated(3)"><fa-icon [icon]="threePerRow"></fa-icon></button>
+        <button class="mx-0.5" (click)="onColumnsUpdated(4)"><fa-icon [icon]="fourPerRow"></fa-icon></button>
+      </div>
+      </div>
+    </div>
+  </div>
+</p-card>

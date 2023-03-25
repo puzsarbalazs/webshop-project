@@ -1,0 +1,174 @@
+<div class="max-w-7xl mx-auto border-x mt-8 szines" >
+  <button pButton (click)="toggleBetweenNewAndUpgrade()">{{newButton ? "Update product" : "Add product"}}</button>
+  <p-card *ngIf="newButton" class="max-w-7xl"  styleClass="bg-color">
+    <div class="bg-color p-12">
+      <h1 class="text-5xl font-bold">Adding new product</h1>
+      <div class="p-grid">
+        <!--p-fileUpload name="asd" url="" (onUpload)="onUpload($event)" accept="image/*"  [maxFileSize]="1000000">
+          <ng-template pTemplate="content">
+            <ul *ngIf="uploadedFiles.length">
+              <li *ngFor="let file of uploadedFiles">{{file.name}}</li>
+            </ul>
+          </ng-template>
+        </p-fileUpload-->
+        <div class="p-col-12">
+          <label for="add-title-input" class="block">Title</label>
+          <input id="add-title-input" class="w-5/12" type="text" pInputText [(ngModel)]="newProduct.title">
+        </div>
+        <div class="p-col-6">
+          <label for="add-price-input" class="block">Price</label>
+          <input id="add-price-input" type="text" pInputText [(ngModel)]="newProduct.price">
+        </div>
+
+        <div class="p-col-12">
+          <label for="add-category" class="block">Category</label>
+          <p-dropdown id="add-category" [options]="categoryList" [(ngModel)]="newProduct.category"></p-dropdown>
+        </div>
+
+        <div class="p-col-12">
+          <label for="add-text-area" class="block">Description</label>
+          <textarea id="add-text-area" rows="4" cols="50" pInputTextarea [(ngModel)]="newProduct.description" ></textarea>
+        </div>
+        <div class="p-col-12">
+          <label class="block">Properties</label>
+          <p-multiSelect  [options]="propertiesItems" optionLabel="name" defaultLabel="Properties" [(ngModel)]="newProduct.properties"></p-multiSelect>
+        </div>
+        <div class="p-col-12">
+          <label for="add-image-input" class="block">Image</label>
+          <input id="add-image-input" type="text" pInputText [(ngModel)]="newProduct.image">
+        </div>
+        <div class="p-col-12">
+          <img class="max-h-32" [src]="newProduct.image">
+        </div>
+        <div class="p-col-12 flex justify-center p-align-center">
+          <button class="" pButton (click)="addNewProduct()">Add product</button>
+        </div>
+      </div>
+
+    </div>
+
+  </p-card>
+  <p-card *ngIf="!newButton" class="max-w-7xl"  styleClass="bg-color">
+    <div class="bg-color p-12">
+      <h1 class="text-5xl font-bold">Update product</h1>
+      <div class="p-grid">
+        <!--p-fileUpload name="asd" url="" (onUpload)="onUpload($event)" accept="image/*"  [maxFileSize]="1000000">
+          <ng-template pTemplate="content">
+            <ul *ngIf="uploadedFiles.length">
+              <li *ngFor="let file of uploadedFiles">{{file.name}}</li>
+            </ul>
+          </ng-template>
+        </p-fileUpload-->
+        <div class="p-col-12">
+          <label for="title-input" class="block">Title</label>
+          <input id="title-input" class="w-5/12" type="text" pInputText [(ngModel)]="newProduct.title">
+        </div>
+        <div class="p-col-6">
+          <label for="id-input" class="block">Id</label>
+          <input id="id-input" type="number" pInputText [(ngModel)]="newProduct.id" disabled="true">
+        </div>
+
+        <div class="p-col-6">
+          <label for="price-input" class="block">Price</label>
+          <input id="price-input" type="text" pInputText [(ngModel)]="newProduct.price">
+        </div>
+
+        <div class="p-col-12">
+          <label for="category" class="block">Category</label>
+          <p-dropdown id="category" [options]="categoryList" [(ngModel)]="newProduct.category"></p-dropdown>
+        </div>
+
+        <div class="p-col-12">
+          <label for="text-area" class="block">Description</label>
+          <textarea id="text-area" rows="4" cols="50" pInputTextarea [(ngModel)]="newProduct.description" ></textarea>
+        </div>
+        <div class="p-col-12">
+          <label class="block">Properties</label>
+          <p-multiSelect  [options]="propertiesItems" optionLabel="name" defaultLabel="Properties" [(ngModel)]="newProduct.properties"></p-multiSelect>
+        </div>
+        <div class="p-col-12">
+          <label for="image-input" class="block">Image</label>
+          <input id="image-input" type="text" pInputText [(ngModel)]="newProduct.image">
+        </div>
+        <div class="p-col-12">
+          <img class="max-h-32" [src]="newProduct.image">
+        </div>
+        <div class="p-col-12 flex justify-center p-align-center">
+          <button class="" pButton (click)="updateProduct()">Update product</button>
+        </div>
+      </div>
+
+    </div>
+
+  </p-card>
+  <p-card class="max-w-7xl border-x bg-color">
+    <div class="bg-color">
+      <p-table [value]="(products | async)!">
+        <ng-template pTemplate="caption">
+          <div>
+            List of products
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th *ngFor="let col of displayedColumns">
+              {{col}}
+            </th>
+            <th>Modify product</th>
+            <th>Delete product</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+          <tr>
+            <td class="px-5">
+              <img [src]="product.image" alt="product" class="w-[300px] my-5">
+            </td>
+            <td>
+              {{product.title}}
+            </td>
+            <td>
+              {{product.description}}
+            </td>
+            <td>
+              {{product.category}}
+            </td>
+            <td>
+              {{product.price | currency}}
+            </td>
+            <td>
+              <button pButton (click)="toTheTop(product)" class="p-button-secondary"><i class="pi pi-cog"></i></button>
+            </td>
+            <td>
+              <button (click)="deleteItem(product)" pButton class="p-button-danger"><i class="pi pi-trash"></i></button>
+            </td>
+          </tr>
+          <!--tr *ngFor="let product of products | async">
+            <td class="px-5">
+              <img [src]="product.image" alt="product" class="w-[300px] my-5">
+            </td>
+            <td>
+              {{product.title}}
+            </td>
+            <td>
+              {{product.description}}
+            </td>
+            <td>
+              {{product.category}}
+            </td>
+            <td>
+              {{product.price | currency}}
+            </td>
+            <td>
+              <button pButton (click)="toTheTop(product)" class="p-button-secondary"><i class="pi pi-cog"></i></button>
+            </td>
+            <td>
+              <button (click)="deleteItem(product)" pButton class="p-button-danger"><i class="pi pi-trash"></i></button>
+            </td>
+          </tr-->
+        </ng-template>
+      </p-table>
+    </div>
+  </p-card>
+</div>
+
+

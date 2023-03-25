@@ -1,0 +1,13 @@
+<p-toast position="center" key="s" class="confirm-toast"
+         [baseZIndex]="5000" [hideTransitionOptions]="'0ms ease-in'" (onClose)="closePurchase()">
+  <ng-template let-message pTemplate="message">
+    <div class="p-flex p-flex-column flex flex-col" style="flex: 1">
+      <div class="p-text-center text-center">
+        <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+        <h4 class="text-lg font-bold my-4">{{message.summary}}</h4>
+        <p class="my-2">{{message.detail}}</p>
+        <p class="my-2">The cart is clearing, and the page is redirecting to the Home Page</p>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
