@@ -10,6 +10,7 @@ import {
   getAllProductsAction,
   searchProductsAction
 } from "../../../../store/app.action";
+import {selectProducts} from "../../../../store/app.selectors";
 
 @Component({
   selector: 'app-filters',
@@ -22,7 +23,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   categoriesSubscription: Subscription | undefined;
   categories: string[] | undefined
   currentCategory: string ="";
-  priceRange : number[] = [0, 1000];
+  priceRange : number[] = [0,  250];
   searchProduct: string = "";
 
   constructor(private productService: ProductService, private primeNgConfig: PrimeNGConfig,

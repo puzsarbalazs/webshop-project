@@ -16,9 +16,9 @@ import {
   filterProductsAction,
   filterProductsResultAction,
   getAllProductsAction,
-  getAllProductsResultAction,
+  getAllProductsResultAction, recommendProductsAction, recommendProductsResultAction,
   searchProductsAction,
-  searchProductsResultAction
+  searchProductsResultAction, updateProductAction, updateProductResultAction
 } from "./app.action";
 import {Repository} from "./repository.js";
 
@@ -46,6 +46,16 @@ export class AppEffects {
       switchMap((action) => this.repository.addProduct(action)),
       map((products) => {
         return addProductResultAction({products})
+      })
+    )
+  )
+
+  private updateProduct = createEffect(
+    () => this.actions$.pipe(
+      ofType(updateProductAction.type),
+      switchMap((action) => this.repository.updateProduct(action)),
+      map((products) => {
+        return updateProductResultAction({products})
       })
     )
   )
@@ -111,7 +121,15 @@ export class AppEffects {
     )
   )
 
-
+  private recommendProductsEffect = createEffect(
+    () => this.actions$.pipe(
+      ofType(recommendProductsAction.type),
+      switchMap((action) => this.repository.recommendProducts(action)),
+      map((products) => {
+        return recommendProductsResultAction({products})
+      })
+    )
+  )
 
   constructor(private actions$: Actions, private productService: ProductService,
               private repository: Repository) {

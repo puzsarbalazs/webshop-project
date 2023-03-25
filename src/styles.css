@@ -136,6 +136,10 @@ p-accordion .p-button.p-button-text {
   width: 100%;
 }
 
+app-admin .p-multiselect {
+  min-width: 15rem;
+}
+
 
 
 

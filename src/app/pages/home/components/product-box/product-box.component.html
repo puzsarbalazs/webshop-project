@@ -9,7 +9,10 @@
         <button (click)="onShowCategory(product.category)"><span class="category-button bg-blue-500 rounded px-2 text-cyan-50">{{product.category | uppercase}}</span></button>
         <p [ngClass]="{'truncate': !fullWidthMode, 'hover:whitespace-normal': !fullWidthMode,
           'my-4':fullWidthMode}">{{product.title}}</p>
-        <p *ngIf="fullWidthMode" class="italic text-sm">{{product.description}}</p>
+        <p *ngIf="fullWidthMode" class="italic text-sm mb-3">{{product.description}}</p>
+        <p *ngIf="fullWidthMode" class="text-sm">
+          <span *ngFor="let property of product.properties" class="bg-blue-200 m-1 px-1 rounded">{{property}}</span>
+        </p>
       </div>
       <div class="flex justify-between mx-8 mt-2 border-t-2 pt-2 border-gray-400" >
         <span class="text-red-500 font-bold" [ngClass]="{'text-3xl': fullWidthMode}">{{product.price | currency}} </span>

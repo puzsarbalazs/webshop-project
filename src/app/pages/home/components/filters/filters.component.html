@@ -15,7 +15,7 @@
     <div class="my-8">
       <h5  class="text-lg my-4">Price {{priceRange[0]  + " - " + priceRange[1]}} ($)</h5>
       <p-slider (onChange)="filterByPrice(priceRange[0], priceRange[1])" [(ngModel)]="priceRange"
-                [max]="1000" [range]="true"></p-slider>
+                [max]="250" [range]="true"></p-slider>
     </div>
 
     <p-accordionTab   header="CATEGORIES" [selected]="false">

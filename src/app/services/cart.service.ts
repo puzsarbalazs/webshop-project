@@ -2,27 +2,38 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {Cart, CartItem} from "../models/cart.model"
 import {MessageService, PrimeNGConfig} from "primeng/api";
+import {HttpClient} from "@angular/common/http";
+import {Product} from "../models/product.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
     cart = new BehaviorSubject<Cart>({items : []});
+    asd = "http://localhost:8080/api/products/recommended"
 
-  constructor(private messageService: MessageService, private primeNgConfig: PrimeNGConfig) { }
+  constructor(private messageService: MessageService, private primeNgConfig: PrimeNGConfig,
+              private httpClient: HttpClient) { }
 
   addToCart(item: CartItem): void {
     this.messageService.clear()
     const items = [...this.cart.value.items]
-
     const itemInCart = items.find(( currentItem => currentItem.id === item.id))
-    if(itemInCart){
-      itemInCart.quantity+=1;
-      this.messageService.add({severity: "info", summary: "Item added to cart", detail: "Item quantity has been increased"})
+    if(itemInCart) {
+      if (item.inStock < itemInCart?.quantity + 1) {
+        this.messageService.add({severity: "warn", summary: "Out of stock", detail: "The item is out of stock"})
+      } else {
+        itemInCart.quantity += 1;
+        this.messageService.add({
+          severity: "info",
+          summary: "Item added to cart",
+          detail: "Item quantity has been increased"
+        })
+      }
     } else {
       items.push(item)
       this.messageService.add({severity: "info", summary: "Item added to cart", detail: "New item has been added to cart"})
-    }
+      }
     this.cart.next({items})
     console.log(this.messageService)
   }
@@ -33,20 +44,36 @@ export class CartService {
     reduce((prev,current) => prev +current, 0);
   }
 
-  clearCart(): void {
+  proceedCheckout(cart: Cart) {
+      this.messageService.add({key:"s",severity: 'info', summary: 'Purchase successful',
+        detail: "Total products: " + this.cart.value.items.length + " \nTotal quantity :" +
+            this.cart.value.items.map(item => item.quantity).reduce((a,b) => a+b) +
+             "\n" + "Total price: $" + this.getTotal(cart)})
+  }
+
+  getRecommendedProducts(idList: any) {
+    return this.httpClient.post<Product[]>(this.asd, idList)
+  }
+
+  clearCart(confirm = true): void {
     this.messageService.clear()
     if (this.cart.value.items.length === 0) {
       this.messageService.add({severity: "warn", summary: "Empty cart", detail: "Your cart is already empty"})
     } else {
       //this.cart.next({items: []})
       //this.messageService.add({severity:"warn", summary: "Cart is cleared", detail: "The cart is now empty"})
-      this.messageService.add({
-        key: "c",
-        severity: "error",
-        summary: "Confirm clearing cart",
-        detail: "Are you sure you want to clear your cart?",
-        sticky: true
-      })
+      if (confirm) {
+        this.messageService.add({
+          key: "c",
+          severity: "error",
+          summary: "Confirm clearing cart",
+          detail: "Are you sure you want to clear your cart?",
+          sticky: true
+        })
+      } else {
+        this.cart.next({items: []})
+      }
+
     }
   }
 

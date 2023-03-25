@@ -1,5 +1,6 @@
 import {createAction, props} from "@ngrx/store";
 import {Product} from "../models/product.model";
+import {Cart, CartItem} from "../models/cart.model";
 
 export const getAllProductsAction = createAction("Get all products");
 export const getAllProductsResultAction = createAction("Get all products result", props<{products: Product[]}>());
@@ -10,6 +11,9 @@ export const getAllProductsResultAction = createAction("Get all products result"
 
 export const addProductActon = createAction("Add product", props<{product: Product}>());
 export const addProductResultAction =createAction("Add product result action", props<{products: Product[]}>());
+
+export const updateProductAction = createAction("Update product", props<{product: Product}>())
+export const updateProductResultAction = createAction("Update product action", props<{products: Product[]}>())
 
 export const categoryFilterAction = createAction("Filter by category",  props<{ category: string }>());
 export const categoryFilterResultAction = createAction("Filter by category action", props<{products: Product[]}>())
@@ -30,3 +34,6 @@ export const filterByPriceResultAction = createAction("Filter by price result", 
 
 export const filterProductsAction = createAction("Filter products",  props<{ filters: {minPrice: number, maxPrice: number, search: string, category:string} }>())
 export const filterProductsResultAction = createAction("Filter products result",  props<{products: Product[]}>())
+
+export const recommendProductsAction = createAction("Recommend products", props<{cart: CartItem[]}>())
+export const recommendProductsResultAction = createAction("Recommend products result", props<{products: Product[]}>())

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Cart, CartItem} from "../../models/cart.model";
 import {CartService} from "../../services/cart.service";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../store/app.reducers";
+import {recommendProductsAction} from "../../store/app.action";
+import {Product} from "../../models/product.model";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-cart',
@@ -8,41 +13,50 @@ import {CartService} from "../../services/cart.service";
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  cart : Cart = { items: [
-      {
-        product: "https://via.placeholder.com/150",
-        name: "snickers",
-        price: 150,
-        quantity: 1,
-        id:1
-      },
-      {
-        product: "https://via.placeholder.com/150",
-        name: "mars",
-        price: 100,
-        quantity: 4,
-        id:2
-      },
-      {
-        product: "https://via.placeholder.com/150",
-        name: "tequila",
-        price: 150,
-        quantity: 2,
-        id:3
-      }
-    ]};
+  cart : Cart = { items: []};
   dataSource: CartItem[] = [];
   displayedColumns: string[] = ["product", "name", "price", "quantity", "total"];
+  asd: CartItem[] = []
+  recommendedProducts: Observable<Product[]> | undefined;
 
 
-
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService,
+              private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.cartService.cart.subscribe((_cart) =>{
       this.cart = _cart;
       this.dataSource = this.cart.items;
     } )
+    console.log(this.cart.items.map(a => a.properties.toString()).toString().split(","))
+    this.getRecommendations(this.dataSource)
+  }
+
+  getRecommendations1(item: CartItem[]) {
+      if (item.length >=3) {
+        const allProperties = item.map(p => p.properties).toString().split(",")
+        let propertyCounter: {} = {}
+        let productIds: number[] = item.map(p => p.id)
+        console.log(productIds)
+        allProperties.forEach((p) => {
+          if (!Object.keys(propertyCounter).includes(p)) {
+            // @ts-ignore
+            propertyCounter[p]=1
+          } else {
+            // @ts-ignore
+            propertyCounter[p]++;
+          }
+        })
+        console.log(allProperties)
+      }
+}
+  proceedToCheckOut(cart: Cart) {
+    this.cartService.proceedCheckout(cart)
+  }
+
+  getRecommendations(items: CartItem[]){
+    let productIds: number[] = items.map(p => p.id)
+    this.recommendedProducts = this.cartService.getRecommendedProducts(productIds);
   }
 
   getTotal(cart: Cart): number {
@@ -71,6 +85,18 @@ export class CartComponent implements OnInit {
 
   onAddQuantity(product: CartItem): void {
     this.cartService.addToCart(product)
+  }
+
+  addToCart(product: Product){
+    this.cartService.addToCart({
+      product: product.image,
+      name: product.title,
+      price: product.price,
+      quantity: 1,
+      id: product.id,
+      properties: product.properties,
+      inStock: product.inStock
+    })
   }
 
   onRemoveQuantity(item: CartItem): void {

@@ -41,6 +41,8 @@ import {FileUploadModule} from "primeng/fileupload";
 import {InputTextModule} from "primeng/inputtext";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {SliderModule} from "primeng/slider";
+import {MultiSelectModule} from "primeng/multiselect";
+import { SuccessfulPurchaseComponent } from './components/successfull-purchase/successful-purchase.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import {SliderModule} from "primeng/slider";
     ProductBoxComponent,
     CartComponent,
     ToastMessageComponent,
-    AdminComponent
+    AdminComponent,
+    SuccessfulPurchaseComponent
   ],
     imports: [
         BrowserModule,
@@ -81,6 +84,7 @@ import {SliderModule} from "primeng/slider";
         InputTextModule,
         InputTextareaModule,
         SliderModule,
+        MultiSelectModule,
     ],
   providers: [CartService, MessageService, ProductService, Repository],
   bootstrap: [AppComponent]
